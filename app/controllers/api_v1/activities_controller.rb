@@ -7,6 +7,8 @@ class ApiV1::ActivitiesController < ApiV1::APIController
     
     @activities = Activity.where(api_scope).
       where(api_range('activities')).
+      where(['is_private = ? OR (is_private = ? AND watchers.user_id = ?)', false, true, current_user.id]).
+      joins("LEFT JOIN watchers ON activities.comment_target_id = watchers.watchable_id AND watchers.watchable_type = activities.comment_target_type").
       order('activities.id DESC').
       limit(api_limit)
 
@@ -16,7 +18,7 @@ class ApiV1::ActivitiesController < ApiV1::APIController
   def show
     @activity = Activity.where(:project_id => current_user.project_ids).find_by_id(params[:id])
     authorize!(:show, @activity) if @activity
-      
+    
     if @activity
       api_respond @activity, :include => [:project, :target, :user, :thread_comments, :uploads]
     else
