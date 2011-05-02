@@ -86,7 +86,7 @@ module Teambox
 
       if allow_outgoing_email
         action_mailer.delivery_method = :smtp
-        action_mailer.smtp_settings = smtp_settings.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+        action_mailer.smtp_settings = smtp_settings.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}.reject {|k,v| %w(password user_name authentication).include?(k.to_s)}
       else
         unless Rails.env.test? || Rails.env.cucumber?
           action_mailer.delivery_method = :test
