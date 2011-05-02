@@ -13,7 +13,7 @@ Teambox::Application.configure do
   # config.action_view.cache_template_loading            = true
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store
   # RAILS3 check
   # if ENV['MEMCACHE_SERVERS']
   #   # Heroku setup: heroku addons:add memcached
