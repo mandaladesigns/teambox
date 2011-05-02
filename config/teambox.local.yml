@@ -1,0 +1,13 @@
+production:
+  <<: *defaults
+  app_domain: olsinbox.mandaladesigns.com
+  secure_logins: true
+  smtp_settings:
+    :domain:         mandaladesigns.com
+    :address:        192.168.1.157
+    :port:           25		
+  allow_incoming_email: true
+  incoming_email_settings:
+    :address:   192.168.1.163
+    :user_name: olsinbox@mandaladesigns.com
+    :password:  psu9001
